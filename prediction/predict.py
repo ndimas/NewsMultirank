@@ -1,4 +1,4 @@
-limport pickle
+import pickle
 import tensorflow as tf
 
 from prediction.util import *
