@@ -15,3 +15,4 @@ six==1.11.0
 urllib3==1.22
 scikit-learn==0.19.1
 tensorflow==1.1.0
+scipy==1.0.0
