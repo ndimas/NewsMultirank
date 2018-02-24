@@ -5,6 +5,7 @@ import random
 import tensorflow as tf
 import pickle 
 from tqdm import tqdm as t
+from IPython import embed
 
 # Set file names
 file_train_instances = "Training_Datasets/train_stances.csv"
@@ -22,7 +23,7 @@ l2_alpha = 0.00001
 learn_rate = 0.01
 clip_ratio = 5
 batch_size_train = 500
-epochs = 90
+epochs = 2
 
 # Load data sets
 raw_train = FNCData(file_train_instances, file_train_bodies)
@@ -33,7 +34,10 @@ n_train = len(raw_train.instances)
 train_set, train_stances, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer = \
     pipeline_train(raw_train, raw_test, lim_unigram=lim_unigram)
 
-#pickle.dump(pipeline, open("pipeline.p", "wb"))
+
+pickle.dump(bow_vectorizer, open("BoW.p", "wb"))
+pickle.dump(tfreq_vectorizer, open("Tfreq.p", "wb"))
+pickle.dump(tfidf_vectorizer, open("Tfidf.p", "wb"))
 
 feature_size = len(train_set[0])
 test_set = pipeline_test(raw_test, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer)
@@ -44,6 +48,9 @@ test_set = pipeline_test(raw_test, bow_vectorizer, tfreq_vectorizer, tfidf_vecto
 features_pl = tf.placeholder(tf.float32, [None, feature_size], 'features')
 stances_pl = tf.placeholder(tf.int64, [None], 'stances')
 keep_prob_pl = tf.placeholder(tf.float32)
+
+#Create constants
+train_stances_tensor = tf.constant(train_stances)
 
 # Infer batch size
 batch_size = tf.shape(features_pl)[0]
@@ -64,7 +71,6 @@ loss = tf.reduce_sum(tf.nn.sparse_softmax_cross_entropy_with_logits( labels = st
 softmaxed_logits = tf.nn.softmax(logits)
 predict = tf.argmax(softmaxed_logits, 1)
 
-
 # Train model
 
 
@@ -78,6 +84,9 @@ opt_op = opt_func.apply_gradients(zip(grads, tf_vars))
 # Perform training
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
+
+    train_pred = sess.run(predict, feed_dict = {features_pl: train_set, keep_prob_pl: 1.0})
+    print(-1, " ", np.mean(np.equal(train_stances, train_pred)))
 
     for epoch in t(range(epochs)):
         total_loss = 0
@@ -94,11 +103,8 @@ with tf.Session() as sess:
             total_loss += current_loss
             
      # Predict
-    test_feed_dict = {features_pl: test_set, keep_prob_pl: 1.0}
-    test_pred = sess.run(predict, feed_dict=test_feed_dict)
-
+        train_pred = sess.run(predict, feed_dict = {features_pl: train_set, keep_prob_pl: 1.0})
+        print(epoch, " ", np.mean(np.equal(train_stances, train_pred)))
 
     saver = tf.train.Saver()
-    saver.save(sess, './Pretrained_models/mislead.ckpt')
-
-
+    saver.save(sess, './Pretrained_models/misleadmodel.ckpt')
