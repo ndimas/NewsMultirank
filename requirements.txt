@@ -17,3 +17,4 @@ scikit-learn==0.19.1
 tensorflow==1.1.0
 scipy==1.0.0
 djangorestframework==3.7.7
+SwampDragon==0.4.2.2
