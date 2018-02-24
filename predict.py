@@ -2,11 +2,6 @@ import argparse
 
 parser = argparse.ArgumentParser()
 
-
-#parser.add_argument("echo", help="echo the string you use here")
-
-parser.add_argument("--title", required = True )
-parser.add_argument("--body", required = True)
 args_parsed = parser.parse_args()
 
 print(args_parsed.body)
