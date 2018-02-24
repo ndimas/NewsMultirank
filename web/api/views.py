@@ -1,9 +1,7 @@
-from rest_framework.generics import ListCreateAPIView
-
-from web.api.models import Prediction
-from web.api.serializers import PredictionSerializer
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
-class PredictionReadView(ListCreateAPIView):
-    queryset = (Prediction("OK"))
-    serializer_class = PredictionSerializer
+@api_view(['GET', 'POST'])
+def predict(request):
+    return Response(request.data)

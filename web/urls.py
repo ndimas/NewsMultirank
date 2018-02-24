@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from web.api.views import PredictionReadView
+from web.api import views
 
 urlpatterns = [
-    url(r'^prediction/$', PredictionReadView.as_view(), name='prediction'),
+    url(r'^prediction/$', views.predict),
 ]
