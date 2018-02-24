@@ -1,11 +1,13 @@
-
-import tensorflow as tf
 import pickle
-from util import *
+import tensorflow as tf
+
+from prediction.util import *
+
 
 def doPredict(body, title):
+    # MISLEAD
 
-    #MISLEAD
+    print("Receiving "+body+title)
 
     tf.reset_default_graph()
 
@@ -31,16 +33,14 @@ def doPredict(body, title):
     tfreq_vectorizer = pickle.load((open("Tfreq.p", 'rb')))
     tfidf_vectorizer = pickle.load((open("Tfidf.p", 'rb')))
 
-
     file_test_instances = "Training_Datasets/test_stances_unlabeled.csv"
     file_test_bodies = "Training_Datasets/test_bodies.csv"
 
-    raw_test = FNCData(title, body, one_sentence = True)
+    raw_test = FNCData(title, body, one_sentence=True)
     test_set = pipeline_test(raw_test, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer)
 
-
     with tf.Session() as sess:
-      # Restore variables from disk.
+        # Restore variables from disk.
         saver.restore(sess, "./Pretrained_models/mislead.ckpt")
         test_feed_dict = {features_pl: test_set, keep_prob_pl: 1.0}
         scores, test_pred = sess.run([softmaxed_logits, predict], feed_dict=test_feed_dict)

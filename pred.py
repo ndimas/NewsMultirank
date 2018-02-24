@@ -14,7 +14,7 @@
 
 
 # Import relevant packages and modules
-from util import *
+from prediction.util import *
 import random
 import tensorflow as tf
 
