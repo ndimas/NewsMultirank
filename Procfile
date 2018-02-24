@@ -1,1 +1,1 @@
-web: pred.py
+web: python pred.py
