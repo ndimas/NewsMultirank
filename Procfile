@@ -1,1 +1,1 @@
-web: reb.py
+web: pred.py
