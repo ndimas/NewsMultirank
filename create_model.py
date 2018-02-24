@@ -17,7 +17,7 @@
 from util import *
 import random
 import tensorflow as tf
-
+import pickle 
 
 
 # Set file names
@@ -46,10 +46,14 @@ n_train = len(raw_train.instances)
 
 
 # Process data sets
-train_set, train_stances, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer = \
+pipeline = train_set, train_stances, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer = \
     pipeline_train(raw_train, raw_test, lim_unigram=lim_unigram)
+
+pickle.dump(pipeline, open("pipeline.p", "wb"))
+
 feature_size = len(train_set[0])
 test_set = pipeline_test(raw_test, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer)
+
 
 
 # Define model
