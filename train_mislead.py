@@ -85,7 +85,7 @@ with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())
 
     train_pred = sess.run(predict, feed_dict = {features_pl: train_set, keep_prob_pl: 1.0})
-    print(-1, " ", np.mean(np.equal(train_stances, train_pred)))
+    #print(-1, " ", np.mean(np.equal(train_stances, train_pred)))
 
     for epoch in t(range(epochs)):
         total_loss = 0
