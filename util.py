@@ -65,7 +65,7 @@ class FNCData:
 
     """
 
-    def __init__(self, file_instances, file_bodies):
+    def __init__(self, file_instances, file_bodies, one_sentence = True):
 
         # Load data
         self.instances = self.read(file_instances)
@@ -73,6 +73,8 @@ class FNCData:
         self.heads = {}
         self.bodies = {}
 
+
+        
         # Process instances
         for instance in self.instances:
             if instance['Headline'] not in self.heads:

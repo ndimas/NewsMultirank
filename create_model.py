@@ -46,7 +46,7 @@ n_train = len(raw_train.instances)
 
 
 # Process data sets
-pipeline = train_set, train_stances, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer = \
+train_set, train_stances, bow_vectorizer, tfreq_vectorizer, tfidf_vectorizer = \
     pipeline_train(raw_train, raw_test, lim_unigram=lim_unigram)
 
 pickle.dump(pipeline, open("pipeline.p", "wb"))

@@ -5,7 +5,6 @@ import random
 import tensorflow as tf
 import pickle 
 from tqdm import tqdm as t
-from IPython import embed
 
 # Set file names
 file_train_instances = "Training_Datasets/train_stances.csv"
@@ -23,7 +22,7 @@ l2_alpha = 0.00001
 learn_rate = 0.01
 clip_ratio = 5
 batch_size_train = 500
-epochs = 2
+epochs = 50
 
 # Load data sets
 raw_train = FNCData(file_train_instances, file_train_bodies)
