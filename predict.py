@@ -1,4 +1,5 @@
 import argparse
+from pip._vendor.requests import Response
 
 parser = argparse.ArgumentParser()
 
@@ -7,14 +8,16 @@ args_parsed = parser.parse_args()
 print(args_parsed.body)
 print(args_parsed.title)
 
-#with open(args_parsed.title, 'r') as f:
-	#title = f.readlines()
 
-#with open(args_parsed.body, 'r') as f:
-	#body = f.readlines()
+class Test:
+    def test(self):
+        0
 
 
-#Read models
+def predict():
+    response = Response()
+    response["Cache-Control"] = 'no-cache'
 
-#Return predictions 
+# Read models
 
+# Return predictions
