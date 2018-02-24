@@ -1,5 +1,6 @@
-from api.models import Prediction
 from rest_framework.serializers import ModelSerializer
+
+from web.api.models import Prediction
 
 
 class PredictionSerializer(ModelSerializer):
