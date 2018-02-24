@@ -1,1 +1,1 @@
-web: python pred.py
+web: python pred.py load
