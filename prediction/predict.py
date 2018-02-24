@@ -1,4 +1,4 @@
-import pickle
+limport pickle
 import tensorflow as tf
 
 from prediction.util import *
@@ -41,7 +41,7 @@ def doPredict(body, title):
 
     with tf.Session() as sess:
         # Restore variables from disk.
-        saver.restore(sess, "./Pretrained_models/mislead.ckpt")
+        saver.restore(sess, "./Pretrained_models/misleadmodel.ckpt")
         test_feed_dict = {features_pl: test_set, keep_prob_pl: 1.0}
         scores, test_pred = sess.run([softmaxed_logits, predict], feed_dict=test_feed_dict)
         return scores, test_pred, interpretation[test_pred[0]]
