@@ -1,1 +1,1 @@
-web: python wsgi.py -p $PORT
+web: gunicorn prediction.wsgi -p $PORT --pythonpath=prediction --log-file -

@@ -66,7 +66,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'movies.wsgi.application'
+WSGI_APPLICATION = 'prediction.wsgi.application'
 
 
 # Database
