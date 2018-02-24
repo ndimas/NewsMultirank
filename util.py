@@ -22,7 +22,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import tensorflow as tf
-
+from IPython import embed
 
 # Initialise global variables
 label_ref = {'agree': 0, 'disagree': 1, 'discuss': 2, 'unrelated': 3}
@@ -65,26 +65,34 @@ class FNCData:
 
     """
 
-    def __init__(self, file_instances, file_bodies, one_sentence = True):
+    def __init__(self, file_instances, file_bodies, one_sentence = False):
 
         # Load data
-        self.instances = self.read(file_instances)
-        bodies = self.read(file_bodies)
         self.heads = {}
         self.bodies = {}
-
-
         
-        # Process instances
-        for instance in self.instances:
-            if instance['Headline'] not in self.heads:
-                head_id = len(self.heads)
-                self.heads[instance['Headline']] = head_id
-            instance['Body ID'] = int(instance['Body ID'])
+        if one_sentence:
+            #File_instances is a string now which is the title
+            #File_bodies is a string now which is the body
+            self.heads = {0: file_instances}
+            self.bodies = {0: file_bodies}
+            self.instances = [{'Body ID': 0, 'Headline': file_instances}]
+        else:
 
-        # Process bodies
-        for body in bodies:
-            self.bodies[int(body['Body ID'])] = body['articleBody']
+            self.instances = self.read(file_instances)
+            bodies = self.read(file_bodies)
+           
+            # Process instances
+            for instance in self.instances:
+                if instance['Headline'] not in self.heads:
+                    head_id = len(self.heads)
+                    self.heads[instance['Headline']] = head_id
+                instance['Body ID'] = int(instance['Body ID'])
+
+            # Process bodies
+            for body in bodies:
+                self.bodies[int(body['Body ID'])] = body['articleBody']
+
 
     def read(self, filename):
 

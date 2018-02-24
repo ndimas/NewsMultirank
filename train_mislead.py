@@ -102,8 +102,8 @@ with tf.Session() as sess:
             total_loss += current_loss
             
      # Predict
-        train_pred = sess.run(predict, feed_dict = {features_pl: train_set, keep_prob_pl: 1.0})
-        print(epoch, " ", np.mean(np.equal(train_stances, train_pred)))
+        #train_pred = sess.run(predict, feed_dict = {features_pl: train_set, keep_prob_pl: 1.0})
+        #print(epoch, " ", np.mean(np.equal(train_stances, train_pred)))
 
     saver = tf.train.Saver()
     saver.save(sess, './Pretrained_models/misleadmodel.ckpt')
