@@ -21,7 +21,6 @@ SECRET_KEY = 'nsrharq0c#$qb$%-z@4wumi_fi&gefj7xh^=qq71j1b!vc0dx8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['unicorn-verification-engine.herokuapp.com', 'localhost', 'https://thoughtful-snowman.glitch.me']
 
 APPEND_SLASH = False
 
