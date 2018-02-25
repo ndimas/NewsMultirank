@@ -10,9 +10,9 @@ parser_classes = (JSONParser,)
 @api_view(['GET', 'POST'])
 def predict(request):
 
-    title = request.data['title']
+    title = request.data[0]
 
-    body = request.data['body']
+    body = request.data[1]
 
     print("head:" + title + " , body:" + body)
 
