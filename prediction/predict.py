@@ -7,8 +7,6 @@ from prediction.util import *
 def doPredict(body, title):
     # MISLEAD
 
-    print("Receiving "+body+title)
-
     tf.reset_default_graph()
 
     # Add ops to save and restore all the variables.
@@ -42,6 +40,9 @@ def doPredict(body, title):
     with tf.Session() as sess:
         # Restore variables from disk.
         saver.restore(sess, "./Pretrained_models/misleadmodel.ckpt")
+
         test_feed_dict = {features_pl: test_set, keep_prob_pl: 1.0}
-        scores, test_pred = sess.run([softmaxed_logits, predict], feed_dict=test_feed_dict)
-        return scores, test_pred, interpretation[test_pred[0]]
+
+        scores, prediction = sess.run([softmaxed_logits, predict], feed_dict=test_feed_dict)
+
+        return interpretation[prediction[0]]
